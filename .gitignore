@@ -1,0 +1,57 @@
+# ---> Java
+# Скомпилированные классы
+*.class
+
+# Логи
+*.log
+
+# BlueJ файлы
+*.ctxt
+
+# Сгенерированные jar, war, ear
+*.jar
+*.war
+*.ear
+
+# Папки сборки (Maven / Gradle)
+target/
+build/
+out/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+
+# Eclipse (если проект когда-нибудь откроется там)
+.classpath
+.project
+.settings/
+
+# NetBeans
+nbproject/private/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# VS Code
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Тестовые отчёты / кэш
+test-output/
+*.swp
+*.swo
+
+# Maven Wrapper (если не нужен в репо)
+.mvn/wrapper/maven-wrapper.jar
+
+# Кэш Gradle
+.gradle/
+
+# Environment files
+.env
