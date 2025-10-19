@@ -19,10 +19,10 @@ public class Task5 {
             add("Sidney");
         }};
 
-        boolean haveShortString = stringList.stream().anyMatch(s -> s.length() == 10);
-        boolean isStartsWithO = stringList.stream().anyMatch(s -> s.startsWith("O"));
+        boolean haveShortString = stringList.stream().anyMatch(s -> s.length() > 10);
+        boolean isContainsChar = stringList.stream().anyMatch(s -> s.contains("a"));
 
         System.out.println("Есть элемент удовлетворяющий условию? " + haveShortString);
-        System.out.println("Есть элемент удовлетворяющий условию? " + isStartsWithO);
+        System.out.println("Есть элемент удовлетворяющий условию? " + isContainsChar);
     }
 }

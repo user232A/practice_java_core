@@ -25,8 +25,8 @@ public class Task5 {
             add(94);
         }};
 
-        List<Integer> unicElements = integerList.stream().distinct().toList();
+        List<Integer> uniqueElements = integerList.stream().distinct().toList();
         System.out.println(integerList);
-        System.out.println(unicElements);
+        System.out.println(uniqueElements);
     }
 }

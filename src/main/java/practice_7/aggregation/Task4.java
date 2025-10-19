@@ -2,6 +2,7 @@ package practice_7.aggregation;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Task4 {
     // 4. Поиск первого элемента, начинающегося на "Б"
@@ -19,7 +20,7 @@ public class Task4 {
             add("Sidney");
         }};
 
-        List<String> startsWithB = stringList.stream().filter(s -> s.startsWith("B")).toList();
-        System.out.println(startsWithB);
+        Optional<String> first = stringList.stream().filter(s -> s.startsWith("B")).findFirst();
+        first.ifPresent(System.out::println);
     }
 }
