@@ -2,8 +2,10 @@ package practice_8;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Task6 implements Runnable {
+
     // 6. Параллельная обработка данных с использованием потоков
     // Условие задачи:
     // Напишите программу, которая создает 3 потока для обработки элементов в списке. Каждый поток должен обработать
@@ -11,28 +13,36 @@ public class Task6 implements Runnable {
     // общий результат: сколько элементов было обработано и их суммы.
 
     List<Integer> list;
+    int from;
+    int to;
 
-    int from = 0;
-    int count = 0;
-    int sum = 0;
+    static AtomicInteger count = new AtomicInteger(0);
+    static AtomicInteger sum = new AtomicInteger(0);
 
+    public Task6(List<Integer> list, int from, int to) {
+        this.list = list;
+        this.from = from;
+        this.to = to;
+    }
 
     @Override
     public void run() {
-        synchronized (this) {
-            for (int i = from; i <= from + 2 && i < list.size(); i++) {
-                System.out.println("Index: " + i + " Value: " + list.get(i));
-                sum += list.get(i);
-                count++;
-            }
-            System.out.println("Работал поток " + Thread.currentThread().getName());
+        for (int i = from; i < to && i < list.size(); i++) {
+            System.out.println("Index: " + i + " Value: " + list.get(i));
+            sum.addAndGet(list.get(i));
+            count.incrementAndGet();
         }
-        from = count;
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            System.out.println("Error");
+        }
+        System.out.println("Работал поток " + Thread.currentThread().getName());
     }
 
     public static void main(String[] args) throws InterruptedException {
-        Task6 task6 = new Task6();
-        task6.list = new ArrayList<>() {{
+
+        List<Integer> list = new ArrayList<>() {{
             add(1);
             add(2);
             add(3);
@@ -44,9 +54,13 @@ public class Task6 implements Runnable {
             add(9);
         }};
 
-        Thread thread1 = new Thread(task6);
-        Thread thread2 = new Thread(task6);
-        Thread thread3 = new Thread(task6);
+        Task6 task1 = new Task6(list, 0, 3);
+        Task6 task2 = new Task6(list, 3, 6);
+        Task6 task3 = new Task6(list, 6, 9);
+
+        Thread thread1 = new Thread(task1);
+        Thread thread2 = new Thread(task2);
+        Thread thread3 = new Thread(task3);
 
         thread1.start();
         thread2.start();
@@ -56,7 +70,8 @@ public class Task6 implements Runnable {
         thread2.join();
         thread3.join();
 
-        System.out.println("Всего элементов " + task6.count);
-        System.out.println("Сумма элементов " + task6.sum);
+        System.out.println("Всего элементов " + count.get());
+        System.out.println("Сумма элементов " + sum.get());
     }
 }
+

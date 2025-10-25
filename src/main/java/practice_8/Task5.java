@@ -1,7 +1,7 @@
 package practice_8;
 
-import java.util.Objects;
 import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Task5 implements Runnable {
     // 5. Реализация пула потоков для обработки задач
@@ -11,23 +11,20 @@ public class Task5 implements Runnable {
     // пул из 4 потоков, каждая задача должна быть выполнена с задержкой в 2 секунды. После выполнения всех задач,
     // результат должен быть выведен в главном потоке.
 
-    final Object lock = new Object();
-
-    static int sum = 0;
+    static AtomicInteger sum = new AtomicInteger(0);
 
     @Override
     public void run() {
-        synchronized (lock){
-            for (int i = 1; i < 100; i++) {
-                sum += i;
-            }
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                System.out.println("Error");
-            }
-            System.out.println("Закончил работу " + Thread.currentThread().getName());
+        for (int i = 1; i <= 100; i++) {
+            sum.incrementAndGet();
         }
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            System.out.println("Error");
+        }
+        System.out.println("Закончил работу " + Thread.currentThread().getName());
+
     }
 
     public static void main(String[] args) throws InterruptedException {
