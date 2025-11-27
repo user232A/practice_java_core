@@ -5,6 +5,16 @@ import java.util.*;
 public class Task1 {
 
     /*
+    @Override
+    public boolean equals(Object obj){
+        if(this == obj) return true;
+        if(obj == null && getClass() != obj.getClass()) return false;
+        Person that = (Person) obj;
+        return this.name.equals.that.name && this.age.equals(that.age);
+    }
+     */
+
+    /*
      1. Получить массив уникальных строк
      Логика решения: Сравнить строку с ее реверсивной копией
      */
@@ -306,6 +316,36 @@ public class Task1 {
             first++;
         }
         return max;
+    }
+
+    /*
+    42. Реализация метода startsWith
+    Логика: посимвольное сравнение
+    Corner case: один символ, prefix все слово
+     */
+
+    public static boolean isStartsWith(String word, String prefix){
+        String replaced = word.trim().replaceAll("[\\W\\d]+", "");
+        for (int i = 0; i < prefix.length(); i++) {
+            if (word.charAt(i) != prefix.charAt(i)) return false;
+        }
+        return true;
+    }
+
+    /*
+    52. Подсчитать кол-во нечетных чисел в массиве
+    Логика:
+    Corner case:
+     */
+
+    public static int countOdds(int[] array){
+        List<Integer> list = new ArrayList<>();
+        for (int number: array){
+            if (number % 2 != 0){
+                list.add(number);
+            }
+        }
+        return list.size();
     }
 
 

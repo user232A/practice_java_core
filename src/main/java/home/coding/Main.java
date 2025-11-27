@@ -1,8 +1,7 @@
 package home.coding;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Stream;
 
 public class Main {
 
@@ -40,13 +39,67 @@ public class Main {
                 .map(Map.Entry::getKey).toList();
     }
 
+    public static boolean isStartsWith(String word, String prefix){
+        String replaced = word.trim().replaceAll("[\\W\\d]+", "");
+        for (int i = 0; i < prefix.length(); i++) {
+            if (word.charAt(i) != prefix.charAt(i)) return false;
+        }
+        return true;
+    }
 
-    public static void main(String[] args) {
-        String s1 = "apple orange potato onion";
-        String s2 = "apple mango potato juice";
+    public static boolean isUniqueNumbers(int[] array){
+        Set<Integer> set = new HashSet<>();
+        for (int number: array){
+            if (!set.add(number)) return false;
+        }
+        return true;
+    }
 
-        System.out.println(getUniqueWords(s1, s2));
 
+    public static void main(String[] args) throws InterruptedException {
+        //String s1 = "apple orange potato onion";
+        //String s2 = "apple mango potato juice";
+
+        //System.out.println(getUniqueWords(s1, s2));
+        //System.out.println(isStartsWith("anna", "anna"));
+
+        /*
+        try {
+            throw new RuntimeException();
+        } catch (Exception e) {
+            System.out.println("E");
+        }
+        finally {
+            System.out.println("F");
+        }
+
+
+        String s = "a";
+        s.concat("b");
+        System.out.println(s);
+         */
+
+        /*
+        boolean r = Stream.of("a", "b", "c")
+                .peek(System.out::print)
+                .anyMatch("b"::equals);
+        System.out.println(r);
+
+         */
+
+        StringBuilder sb = new StringBuilder();
+        Thread thread1 = new Thread(() -> sb.append("A"));
+        Thread thread2 = new Thread(() -> sb.append("B"));
+
+        thread1.start();
+        thread1.join();
+
+        thread2.start();
+        thread2.join();
+
+        System.out.println(sb.toString());
 
     }
+
+
 }

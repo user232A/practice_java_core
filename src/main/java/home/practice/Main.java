@@ -2,52 +2,38 @@ package home.practice;
 
 public class Main {
 
-    //Спроектировать систему которая управляет заказами и скидками.
-
     /*
 
-    1) Сущности:
-    Item:
-    PhysicalItem
-    DigitalItem
+    Product (name, price, category)
 
-    Discount:
-    FixedDiscount
-    PercentageDiscount
+    Promotion
+    percentPromotion
+    fixedAmountPromotion
+    Coupon
 
-    Service
-
-    2) Действия + вопросы
-    - Добавление заказа в список
-    - Добавление заказов в список
-    - Применение скидки
-    - Применение всех скидок сразу
-    - Подсчет итоговой суммы заказа
-
-    3) Проектирование классов
-    Item
-    PhysicalItem extends Item
-    DigitalItem extends Item
-
-    Discountable
-    FixedDiscount (double fixedSum)
-    PercentageDiscount (double percentage)
-
-    Service (содержит items, discounts)
-    calculateTotalSum()
+    Order
+    sumPurchase
+    totalSum
 
      */
 
     public static void main(String[] args) {
 
-        Service service = new Service();
+        Order order = new Order();
 
-        service.addItemToList(new DigitalItem("Lesson 1", 50, 53),
-                new PhysicalItem("char", 10, 2.2), new DigitalItem("Lesson 2", 10, 24));
+        Product product1 = new Product("char", 45, new Category("A"));
+        Product product2 = new Product("table", 55, new Category("B"));
+        Product product3 = new Product("window", 60, new Category("A"));
+        Product product4 = new Product("window", 100, new Category("A"));
 
-        service.addDiscountsToList(new PercentageDiscount(10), new FixedDiscount(20));
+        order.addProducts(product1, product2, product3, product4);
 
-        System.out.println(service.calculateTotalPrice());
+        order.addPromo(
+                new PercentPromotion(10),
+                new FixedAmountPromotion(20),
+                new Coupon(5, new Category("A"))
+        );
 
+        System.out.println(order.calculateTotalPrice());
     }
 }
