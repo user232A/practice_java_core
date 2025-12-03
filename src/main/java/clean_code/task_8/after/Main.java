@@ -4,8 +4,10 @@ public class Main {
 
     public static void main(String[] args) {
 
-        NotificationService service = new NotificationService();
-        service.sendNotification(new EmailSender(), "test email");
-        service.sendNotification(new SmsSender(), "sms test");
+        NotificationService service1 = new NotificationService(new EmailSender());
+        NotificationService service2 = new NotificationService(new SmsSender());
+
+        service1.sendNotification("test email");
+        service2.sendNotification("sms test");
     }
 }

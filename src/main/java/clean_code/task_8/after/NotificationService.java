@@ -2,7 +2,13 @@ package clean_code.task_8.after;
 
 public class NotificationService {
 
-    public void sendNotification(ISender sender, String message) {
+    private ISender sender;
+
+    public NotificationService(ISender sender) {
+        this.sender = sender;
+    }
+
+    public void sendNotification(String message) {
         sender.send(message);
     }
 }
