@@ -13,6 +13,11 @@ public class VideoService {
     public void streamVideo() {
         System.out.println("Converting video " + video.getClass().getSimpleName() + " " + video.name);
         Video convertedVideo = adapter.convertVideo(video);
-        convertedVideo.play();
+        if (convertedVideo != null) {
+            convertedVideo.play();
+        } else {
+            System.out.println("Video already in MP4 format, no conversion needed");
+            video.play();
+        }
     }
 }

@@ -15,7 +15,7 @@ public class UrlShortenerService {
             throw new IllegalArgumentException("Invalid argument");
         }
 
-        String replaced = url.trim().replaceAll("[\\s]+", "");
+        String replaced = url.trim();
 
         System.out.println("Transform url by strategy " + factory.getClass().getSimpleName());
         String converted = factory.convertToShortUrl(replaced);
@@ -24,6 +24,6 @@ public class UrlShortenerService {
     }
 
     public String restoreUrl(String url) {
-        return storage.getStorage().get(url);
+        return storage.getStorage().getOrDefault(url, "Such string does not exist");
     }
 }
